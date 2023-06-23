@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CityWeather>
+
+@{
+    string GetColor(int temp)
+    {
+        string color = "";
+
+        switch (temp)
+        {
+            case < 44: color = "blue-back"; break;
+
+            case int n when (n > 44 && n < 74): color = "green-back"; break;
+
+            case > 74: color = "orange-back"; break;
+        }
+
+        return color;
+    }
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All City Weather</title>
+    <link href="~/MyStyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="header">
+        <p id="homelink"><a href="/" alt="Home"></a></p>
+        <p id="title">All City Weather</p>
+    </div>
+
+    <div class="container">
+
+        @foreach (CityWeather city in Model)
+        {
+            <div class="city-box @GetColor(@city.TemperatureFahrenheit)">
+                <div class="left-section">
+                    <div class="city-name">@city.CityName</div>
+                    <div class="details">@city.DateAndTime.ToString("MM/dd/yyyy")</div>
+                    <div class="details">@city.DateAndTime.ToString("HH:mm")</div>
+                </div>
+                <div class="right-section">
+                    <div class="temperature">@city.TemperatureFahrenheit &deg;F</div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="footer"><p>powered by ADG 2023</p></div>
+</body>
+</html>

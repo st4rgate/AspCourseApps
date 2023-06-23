@@ -1,0 +1,31 @@
+﻿@{
+    string errMsg = "";
+    switch (ViewBag.errCode)
+    {
+        case 0:
+            errMsg = "City not found!";
+            break;
+        case 1:
+            errMsg = "The format of city code is unknown";
+            break;
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewBag.titlePage</title>
+</head>
+<body>
+    <div class="header">
+        <p id="homelink"><a href="/" alt="Home"></a></p>
+    </div>
+    <div class="error-container">
+        <link href="~/MyStyleSheet.css" rel="stylesheet" />
+        <div class="notification-message">Oooops, something went wrong...</div>
+        <div class="error-message">@errMsg</div>
+    </div>
+    <div class="footer"><p>powered by ADG 2023</p></div>
+</body>
+</html>

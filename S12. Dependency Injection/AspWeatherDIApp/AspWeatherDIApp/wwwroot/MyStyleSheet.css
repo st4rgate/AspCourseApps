@@ -1,0 +1,148 @@
+body {
+    background-color: lightgray;
+    font-family: Verdana, Arial, sans-serif;
+    width: 100%;
+}
+
+.header {
+    display: table;
+    height: 100px;
+    width: 90%;
+    margin: 0px auto;
+    margin-bottom: 80px;
+    border-bottom: 2px solid;
+    border-bottom-color: darkgray;
+}
+
+    .header #title {
+        display: table-cell;
+        height: inherit;
+        width: 95%;
+        padding: 0px 0px 0px 0px;
+        font-size: 28px;
+        font-weight: bold;
+        color: dimgray;
+        vertical-align: middle;
+        text-align: left;
+    }
+
+    .header #homelink {
+        display: table-cell;
+        width: 5%;
+        min-width: 50px;
+        height: inherit;
+        vertical-align: middle;
+    }
+
+    .header a {
+        height: 36px;
+        width: 36px;
+        display: inline-block;
+        background-image: url(home.png);
+        background-size: cover;
+    }
+
+.container {
+    display: flex;
+    width: 90%;
+    margin: 0px auto;
+    justify-content: center;
+}
+
+@media (max-width: 800px) {
+    .container {
+        flex-direction: column;
+    }
+}
+
+.city-box {
+    display: inline-table;
+    height: 80px;
+    width: 350px;
+    min-width: 250px;
+    color: dimgray;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: darkgray;
+    margin: 0px 20px 10px 0px;
+    padding: 10px;
+}
+
+.left-section {
+    display: table-cell;
+    width: 65%;
+    height:inherit;
+    border-right: 2px solid gray;
+    vertical-align: middle;
+    padding: 0px 0px 0px 10px;
+}
+
+.city-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.details {
+    font-size: 14px;
+}
+
+.right-section {
+    display: table-cell;
+    height: inherit;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.temperature {
+
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.error-container {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.error-message {
+    font-size: 48px;
+    color: #910;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.notification-message {
+    font-size: 24px;
+    color: #333;
+}
+
+.footer {
+    display: table;
+    height: 30px;
+    width: 90%;
+    margin: 0px auto;
+    margin-top: 70px;
+    border-top: 2px solid;
+    border-top-color: darkgray;
+}
+
+    .footer p {
+        display: table-cell;
+        font-size: 14px;
+        font-weight: bold;
+        color: dimgray;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+.blue-back {
+    background-color: #6cb7e6;
+}
+
+.green-back {
+    background-color: #00cc66;
+}
+
+.orange-back {
+    background-color: #faca70;
+}
