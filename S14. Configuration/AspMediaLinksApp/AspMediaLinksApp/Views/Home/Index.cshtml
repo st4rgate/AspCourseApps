@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Media Links";
+}
+
+<div><h1>Media Links</h1></div>
+
+<div class="flex">
+    <div class="box blue-back w-25"><a href=@ViewBag.Facebook><h2>Facebook</h2></a></div>
+    <environment exclude="Development">
+    <div class="box blue-back w-25"><a href=@ViewBag.Instagram><h2>Instagram</h2></a></div>
+    </environment>
+    <div class="box blue-back w-25"><a href=@ViewBag.Twitter><h2>Twitter</h2></a></div>
+    <div class="box blue-back w-25"><a href=@ViewBag.Youtube><h2>Youtube</h2></a></div>
+
+</div>
+
