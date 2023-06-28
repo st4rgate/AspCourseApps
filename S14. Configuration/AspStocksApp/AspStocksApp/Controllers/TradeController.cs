@@ -3,37 +3,55 @@ using AspStocksApp.Models;
 using AspStocksApp.Models.Options;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Globalization;
 
 namespace AspStocksApp.Controllers
 {
     public class TradeController : Controller
     {
         private readonly IFinnhubService _finnhubService;
-        private readonly IOptions<TradingOptions> _tradingOptions;
+        private readonly TradingOptions _tradingOptions;
+        private readonly IConfiguration _configuration;
 
-        public TradeController(IFinnhubService finnhubService, IOptions<TradingOptions> tradingOptions)
+        public TradeController(IFinnhubService finnhubService,
+            IOptions<TradingOptions> tradingOptions,
+            IConfiguration configuration)
         {
             _finnhubService = finnhubService;
-            _tradingOptions = tradingOptions;
+            _tradingOptions = tradingOptions.Value;
+            _configuration = configuration;
         }
 
+        [Route("/")]
         [Route("Trade/Index")]
         public async Task<IActionResult> Index()
         {
-            if(_tradingOptions.Value.DefaultStockSymbol == null)
+            if (_tradingOptions.DefaultStockSymbol == null)
             {
-                _tradingOptions.Value.DefaultStockSymbol = "MSFT";
+                _tradingOptions.DefaultStockSymbol = "MSFT";
             }
 
-            Dictionary<string, object>? stockDetails = await _finnhubService.GetCompanyProfile(_tradingOptions.Value.DefaultStockSymbol);
-            Dictionary<string, object>? quoteDetails = await _finnhubService.GetStockPriceQuote(_tradingOptions.Value.DefaultStockSymbol);
+            Dictionary<string, object>? stockDetails =
+                await _finnhubService.GetCompanyProfile(_tradingOptions.DefaultStockSymbol);
+            Dictionary<string, object>? quoteDetails =
+                await _finnhubService.GetStockPriceQuote(_tradingOptions.DefaultStockSymbol);
 
-            StockTrade stockTrade = new StockTrade()
+            NumberFormatInfo provider = new NumberFormatInfo();
+            provider.NumberGroupSeparator = ".";
+
+            if (stockDetails != null && quoteDetails != null)
             {
-                StockSymbol = _tradingOptions.Value.DefaultStockSymbol,
-                StockName = Convert.ToString(stockDetails["name"]),
-                Price = Convert.ToDouble(quoteDetails["p"])
-            };
+                StockTrade stockTrade = new StockTrade()
+                {
+                    StockSymbol = _tradingOptions.DefaultStockSymbol,
+                    StockName = Convert.ToString(stockDetails["name"]),
+                    Currency = Convert.ToString(stockDetails["currency"]),
+                    Price = Convert.ToDouble(quoteDetails["c"].ToString(), provider)
+                };
+
+                ViewBag.Token = _configuration["finnhubToken"];
+                return View(stockTrade);
+            }
 
             return View();
         }
