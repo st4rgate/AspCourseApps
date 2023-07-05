@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StocksEntities", "StocksEnt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StocksServiceContracts", "StocksServiceContracts\StocksServiceContracts.csproj", "{8E99BBE0-F731-45B1-818F-6868907D1443}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StocksService", "StocksService\StocksService.csproj", "{9949C7BA-3B68-4C36-82EC-A7A6334BC7B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8E99BBE0-F731-45B1-818F-6868907D1443}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E99BBE0-F731-45B1-818F-6868907D1443}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E99BBE0-F731-45B1-818F-6868907D1443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9949C7BA-3B68-4C36-82EC-A7A6334BC7B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9949C7BA-3B68-4C36-82EC-A7A6334BC7B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9949C7BA-3B68-4C36-82EC-A7A6334BC7B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9949C7BA-3B68-4C36-82EC-A7A6334BC7B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
