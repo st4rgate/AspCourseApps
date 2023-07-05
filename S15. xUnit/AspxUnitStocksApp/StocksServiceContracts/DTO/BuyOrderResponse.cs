@@ -1,0 +1,27 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace StocksServiceContracts.DTO
+{
+    public class BuyOrderResponse
+    {
+        public Guid BuyOrderID { get; set; }
+
+        [Display(Name = "Stock Symbol")]
+        public string StockSymbol { get; set; } = string.Empty;
+
+        [Display(Name = "Stock Name")]
+        public string StockName { get; set; } = string.Empty;
+
+        [Display(Name = "Order Date")]
+        public DateTime DateAndTimeOfOrder { get; set; }
+
+        [Display(Name = "Stock Quantity")]
+        public uint Quantity { get; set; }
+
+        [Display(Name = "Stock Price")]
+        public double Price { get; set; }
+
+        [Display(Name = "Trade Amount")]
+        public double TradeAmount { get; set; }
+    }
+}
