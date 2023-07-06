@@ -7,10 +7,10 @@ namespace StocksServiceContracts.DTO
         public Guid SellOrderID { get; set; }
 
         [Display(Name = "Stock Symbol")]
-        public string StockSymbol { get; set; }
+        public string? StockSymbol { get; set; }
 
         [Display(Name = "Stock Name")]
-        public string StockName { get; set; }
+        public string? StockName { get; set; }
 
         [Display(Name = "Order Date")]
         public DateTime DateAndTimeOfOrder { get; set; }

@@ -11,11 +11,11 @@ namespace StocksServiceContracts.DTO
     {
         [Display(Name = "Stock Symbol")]
         [Required(ErrorMessage = "Stock symbol can't be blank")]
-        public string StockSymbol { get; set; }
+        public string? StockSymbol { get; set; }
 
         [Display(Name = "Stock Name")]
         [Required(ErrorMessage = "Stock name can't be blank")]
-        public string StockName { get; set; }
+        public string? StockName { get; set; }
         [Display(Name = "Order Date")]
         [MinDate("2000-01-01", ErrorMessage = "Order Date must be after 2000-01-01")]
         public DateTime DateAndTimeOfOrder { get; set; }

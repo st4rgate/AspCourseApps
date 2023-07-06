@@ -1,4 +1,5 @@
-﻿using StocksServiceContracts.Interfaces;
+﻿using Microsoft.Extensions.Configuration;
+using StocksServiceContracts.Interfaces;
 using System.Text.Json;
 
 namespace StocksService
