@@ -1,7 +1,5 @@
 using StocksService;
 using StocksServiceContracts.DTO;
-using System;
-using System.Runtime.ConstrainedExecution;
 
 namespace StocksTestUnit
 {
@@ -9,7 +7,7 @@ namespace StocksTestUnit
     {
         private readonly StockService _stockService;
 
-        public StockTests() 
+        public StockTests()
         {
             _stockService = new StockService();
         }
@@ -18,20 +16,20 @@ namespace StocksTestUnit
 
         // BuyOrderRequest as null > ArgumentNullException
         [Fact]
-        public void CreateBuyOrder_NullBuyOrderRequest()
+        public async void CreateBuyOrder_NullBuyOrderRequest()
         {
             // Arrange
             BuyOrderRequest? buyRequest = null;
 
             // Assert
-            Assert.ThrowsAsync<ArgumentNullException>(
+            await Assert.ThrowsAsync<ArgumentNullException>(
                 // Act
                 () => _stockService.CreateBuyOrder(buyRequest));
         }
 
         // BuyOrderQuantity as 0 (as per the specification, minimum is 1) > ArgumentException.
         [Fact]
-        public void CreateBuyOrder_MinBuyOrderQuantity()
+        public async void CreateBuyOrder_MinBuyOrderQuantity()
         {
             // Arrange
             BuyOrderRequest buyRequest = new BuyOrderRequest()
@@ -44,14 +42,14 @@ namespace StocksTestUnit
             };
 
             // Assert
-            Assert.ThrowsAsync<ArgumentException>(
+            await Assert.ThrowsAsync<ArgumentException>(
                 // Act
                 () => _stockService.CreateBuyOrder(buyRequest));
         }
 
         // BuyOrderQuantity as 100001 (as per the specification, maximum is 100000) > ArgumentException.
         [Fact]
-        public void CreateBuyOrder_MaxBuyOrderQuantity()
+        public async void CreateBuyOrder_MaxBuyOrderQuantity()
         {
             // Arrange
             BuyOrderRequest buyRequest = new BuyOrderRequest()
@@ -64,14 +62,14 @@ namespace StocksTestUnit
             };
 
             // Assert
-            Assert.ThrowsAsync<ArgumentException>(
+            await Assert.ThrowsAsync<ArgumentException>(
                 // Act
                 () => _stockService.CreateBuyOrder(buyRequest));
         }
 
         // BuyOrderPrice as 0 (as per the specification, minimum is 1) > ArgumentException
         [Fact]
-        public void CreateBuyOrder_MinBuyOrderPrice()
+        public async void CreateBuyOrder_MinBuyOrderPrice()
         {
             // Arrange
             BuyOrderRequest buyRequest = new BuyOrderRequest()
@@ -84,14 +82,14 @@ namespace StocksTestUnit
             };
 
             // Assert
-            Assert.ThrowsAsync<ArgumentException>(
+            await Assert.ThrowsAsync<ArgumentException>(
                 // Act
                 () => _stockService.CreateBuyOrder(buyRequest));
         }
 
         // BuyOrderPrice as 10001 (as per the specification, maximum is 10000) > ArgumentException
         [Fact]
-        public void CreateBuyOrder_MaxBuyOrderPrice()
+        public async void CreateBuyOrder_MaxBuyOrderPrice()
         {
             // Arrange
             BuyOrderRequest buyRequest = new BuyOrderRequest()
@@ -104,14 +102,14 @@ namespace StocksTestUnit
             };
 
             // Assert
-            Assert.ThrowsAsync<ArgumentException>(
+            await Assert.ThrowsAsync<ArgumentException>(
                 // Act
                 () => _stockService.CreateBuyOrder(buyRequest));
         }
 
         // StockSymbol=null (as per the specification, StockSymbol can't be null) > ArgumentException
         [Fact]
-        public void CreateBuyOrder_NullStockSymbol()
+        public async void CreateBuyOrder_NullStockSymbol()
         {
             // Arrange
             BuyOrderRequest buyRequest = new BuyOrderRequest()
@@ -124,7 +122,7 @@ namespace StocksTestUnit
             };
 
             // Assert
-            Assert.ThrowsAsync<ArgumentException>(
+            await Assert.ThrowsAsync<ArgumentException>(
                 // Act
                 () => _stockService.CreateBuyOrder(buyRequest));
         }
@@ -132,7 +130,7 @@ namespace StocksTestUnit
         // DateAndTimeOfOrder as "1999-12-31"
         // (as per the specification, it should be equal or newer date than 2000-01-01) > ArgumentException
         [Fact]
-        public void CreateBuyOrder_MinDateAndTimeOfOrder()
+        public async void CreateBuyOrder_MinDateAndTimeOfOrder()
         {
             // Arrange
             BuyOrderRequest buyRequest = new BuyOrderRequest()
@@ -145,7 +143,7 @@ namespace StocksTestUnit
             };
 
             // Assert
-            Assert.ThrowsAsync<ArgumentException>(
+            await Assert.ThrowsAsync<ArgumentException>(
                 // Act
                 () => _stockService.CreateBuyOrder(buyRequest));
         }
@@ -173,4 +171,5 @@ namespace StocksTestUnit
 
             #endregion
         }
+    }
 }

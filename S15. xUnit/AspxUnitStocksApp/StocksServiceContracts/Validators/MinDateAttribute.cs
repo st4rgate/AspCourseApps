@@ -9,11 +9,11 @@ namespace StocksServiceContracts.Validators
         {
         }
         // Costruttore che riceve in modo dinamico il valore minimo per l'anno
-        private string _dateMin { get; set; } = "2000-01-01";
+        private DateTime _dateMin { get; set; } = new DateTime(2000, 01, 01);
         private string DefaultErrorMessage { get; set; } = "Minimum date allowed is {0}";
         public MinDateAttribute(string dateMin)
         {
-            _dateMin = dateMin;
+            _dateMin = Convert.ToDateTime(dateMin);
         }
         // Override IsValid
         // value is the min date and validationContex contains validation details and reference to model object
@@ -26,7 +26,7 @@ namespace StocksServiceContracts.Validators
                 //if (dateToVerify > dateMin) return new ValidationResult("Minimum date allowed is {_dateMin}");
                 // custom message with ErrorMessage= and parameter {0} that contains "_dateMin" value
                 // or default message if custom is null (ErrorMessage?? DefaultErrorMessage)
-                if (dateToVerify > Convert.ToDateTime(_dateMin)) return new ValidationResult(String.Format(ErrorMessage ?? DefaultErrorMessage, _dateMin));
+                if (dateToVerify < _dateMin) return new ValidationResult(String.Format(ErrorMessage ?? DefaultErrorMessage, _dateMin));
 
                 else return ValidationResult.Success;
             }
