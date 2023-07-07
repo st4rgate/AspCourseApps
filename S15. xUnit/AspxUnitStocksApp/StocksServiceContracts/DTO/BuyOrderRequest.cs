@@ -1,5 +1,9 @@
-﻿using StocksServiceContracts.Validators;
+﻿using StocksEntities;
+using StocksServiceContracts.Validators;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
+using System.Reflection;
 
 namespace StocksServiceContracts.DTO
 {
@@ -28,5 +32,21 @@ namespace StocksServiceContracts.DTO
         [Display(Name = "Stock Price")]
         [Range(1, 10000, ErrorMessage = "Stock price must be between 1 and 10000")]
         public double Price { get; set; }
+
+        /// <summary>
+        /// Converte l'oggetto DTO in oggetto DOM
+        /// </summary>
+        /// <returns>BuyOrder</returns>
+        public BuyOrder ToBuyOrder()
+        {
+            return new BuyOrder()
+            {
+                StockSymbol = StockSymbol,
+                StockName = StockName,
+                DateAndTimeOfOrder = DateAndTimeOfOrder,
+                Quantity = Quantity,
+                Price = Price
+            };
+        }
     }
 }

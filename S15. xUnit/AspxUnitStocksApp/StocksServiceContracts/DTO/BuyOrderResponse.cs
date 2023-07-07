@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using StocksEntities;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Reflection;
 
@@ -55,6 +56,38 @@ namespace StocksServiceContracts.DTO
         public override int GetHashCode()
         {
             return BuyOrderID.GetHashCode();
+        }
+
+        /// <summary>
+        /// Override ToString() method to obtain per ottenere model properties list
+        /// </summary>
+        /// <returns>String with model properties</returns>
+        public override string ToString()
+        {
+            return $"BuyOrderID:{BuyOrderID}, StockSymbol:{StockSymbol}, StockName:{StockName}," +
+                $"DateAndTimeOfOrder:{DateAndTimeOfOrder.ToString("dd MMMM yyyy")}, Quantity:{Quantity}," +
+                $" Price:{Price}, TradeAmount:{TradeAmount}";
+        }
+    }
+    public static class BuyOrderExtensions
+    {
+        /// <summary>
+        /// An extension method to convert an object of BuyOrder into BuyOrderResponse
+        /// </summary>
+        /// <param name="buyOrder">The BuyOrder object to convert</param>
+        /// <returns>BuyOrderResponse</returns>
+        public static BuyOrderResponse ToBuyOrderResponse(this BuyOrder buyOrder)
+        {
+            return new BuyOrderResponse()
+            {
+                BuyOrderID = buyOrder.BuyOrderID,
+                StockSymbol = buyOrder.StockSymbol,
+                StockName = buyOrder.StockName,
+                Price = buyOrder.Price,
+                DateAndTimeOfOrder = buyOrder.DateAndTimeOfOrder,
+                Quantity = buyOrder.Quantity,
+                TradeAmount = buyOrder.Price * buyOrder.Quantity
+            };
         }
     }
 }

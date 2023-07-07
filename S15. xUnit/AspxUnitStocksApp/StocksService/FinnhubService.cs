@@ -35,7 +35,6 @@ namespace StocksService
                 return result;
             }
         }
-
         public async Task<Dictionary<string, object>?> GetStockPriceQuote(string stockSymbol)
         {
             using (HttpClient finnhubClient = _httpClient.CreateClient())

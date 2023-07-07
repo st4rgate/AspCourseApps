@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using StocksEntities;
+using System.ComponentModel.DataAnnotations;
 
 namespace StocksServiceContracts.DTO
 {
@@ -37,15 +38,15 @@ namespace StocksServiceContracts.DTO
                 return false;
             }
 
-            if (obj.GetType() != typeof(BuyOrderResponse))
+            if (obj.GetType() != typeof(SellOrderResponse))
             {
                 return false;
             }
             // Cast di obj per poter accedere alle sue proprietà
-            BuyOrderResponse objToMatch = (BuyOrderResponse)obj;
+            SellOrderResponse objToMatch = (SellOrderResponse)obj;
 
             // Restituisce true se tutte le proprietà corrispondono
-            return SellOrderID == objToMatch.BuyOrderID && StockSymbol == objToMatch.StockSymbol &&
+            return SellOrderID == objToMatch.SellOrderID && StockSymbol == objToMatch.StockSymbol &&
                 StockName == objToMatch.StockName && DateAndTimeOfOrder == objToMatch.DateAndTimeOfOrder &&
                 Quantity == objToMatch.Quantity && Price == objToMatch.Price && TradeAmount == objToMatch.TradeAmount;
         }
@@ -53,6 +54,39 @@ namespace StocksServiceContracts.DTO
         public override int GetHashCode()
         {
             return SellOrderID.GetHashCode();
+        }
+
+        /// <summary>
+        /// Override ToString() method to obtain per ottenere model properties list
+        /// </summary>
+        /// <returns>String with model properties</returns>
+        public override string ToString()
+        {
+            return $"SellOrderID:{SellOrderID}, StockSymbol:{StockSymbol}, StockName:{StockName}," +
+                $"DateAndTimeOfOrder:{DateAndTimeOfOrder.ToString("dd MMMM yyyy")}, Quantity:{Quantity}," +
+                $" Price:{Price}, TradeAmount:{TradeAmount}";
+        }
+    }
+
+    public static class SellOrderExtensions
+    {
+        /// <summary>
+        /// An extension method to convert an object of BuyOrder into SellOrderResponse
+        /// </summary>
+        /// <param name="sellOrder">The SellOrder object to convert</param>
+        /// <returns>SellOrderResponse</returns>
+        public static SellOrderResponse ToSellOrderResponse(this SellOrder sellOrder)
+        {
+            return new SellOrderResponse()
+            {
+                SellOrderID = sellOrder.SellOrderID,
+                StockSymbol = sellOrder.StockSymbol,
+                StockName = sellOrder.StockName,
+                Price = sellOrder.Price,
+                DateAndTimeOfOrder = sellOrder.DateAndTimeOfOrder,
+                Quantity = sellOrder.Quantity,
+                TradeAmount = sellOrder.Price * sellOrder.Quantity
+            };
         }
     }
 }

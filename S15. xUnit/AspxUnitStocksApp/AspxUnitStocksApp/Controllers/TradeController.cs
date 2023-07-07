@@ -2,6 +2,7 @@
 using AspxUnitStocksApp.Models.Options;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using StocksServiceContracts.Interfaces;
 using System.Globalization;
 
 namespace AspxUnitStocksApp.Controllers
@@ -9,14 +10,17 @@ namespace AspxUnitStocksApp.Controllers
     public class TradeController : Controller
     {
         private readonly IFinnhubService _finnhubService;
+        private readonly IStockService _stockService;
         private readonly TradingOptions _tradingOptions;
         private readonly IConfiguration _configuration;
 
         public TradeController(IFinnhubService finnhubService,
+            IStockService stockService,
             IOptions<TradingOptions> tradingOptions,
             IConfiguration configuration)
         {
             _finnhubService = finnhubService;
+            _stockService = stockService;
             _tradingOptions = tradingOptions.Value;
             _configuration = configuration;
         }

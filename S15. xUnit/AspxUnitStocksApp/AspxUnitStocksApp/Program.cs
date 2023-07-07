@@ -5,7 +5,7 @@ using StocksServiceContracts.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-//builder.Services.AddHttpClient();
+builder.Services.AddHttpClient();
 builder.Services.AddScoped<IFinnhubService, FinnhubService>();
 builder.Services.AddScoped<IStockService, StockService>();
 builder.Services.Configure<TradingOptions>(builder.Configuration.GetSection("TradingOptions"));
