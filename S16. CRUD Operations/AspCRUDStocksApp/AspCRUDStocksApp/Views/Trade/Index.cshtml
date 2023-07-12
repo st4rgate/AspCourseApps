@@ -42,29 +42,81 @@
 <section class="dashboard">
     <form method="post">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-6">
                 <div class="row">
-
-                    <!-- Card -->
-                    <div class="col-xxl-6 col-md-6">
+                    <!-- Card Start-->
+                    <div class="col-6 col-md-6">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
                                 <h5 class="card-title">@Model.StockName<span> | @Model.StockSymbol</span></h5>
-
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-currency-dollar"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>@Model.Currency @Model.Price</h6>
+                                        <h6 class="price">@Model.Currency @Model.Price</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Card -->
-                    <!-- Card -->
-                    <div class="col-xxl-6 col-md-6">
+                    <!-- Card End -->
+                    <!-- Card Start-->
+                    <div class="col-6 col-md-6">
+                        <div class="card info-card revenue-card">
+                            <div class="card-body">
+                                <h5 class="card-title">2 | SX</span></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>$---</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card End-->
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="row">
+                    <!-- Card Start-->
+                    <div class="col-6 col-md-6">
+                        <div class="card info-card revenue-card">
+                            <div class="card-body">
+                                <h5 class="card-title">3<span> | DX</span></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>$---</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card End-->
+                    <!-- Card Start-->
+                    <div class="col-6 col-md-6">
+                        <div class="card info-card revenue-card">
+                            <div class="card-body">
+                                <h5 class="card-title">4<span> | DX</span></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>$---</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card End-->
                 </div>
             </div>
         </div>
@@ -74,4 +126,6 @@
     </form>
 </section>
 
-@section JS{<script src="~/assets/js/FinnhubScript.js"></script>}
+@section JS{
+    <script src="~/assets/js/FinnhubScript.js"></script>
+}
