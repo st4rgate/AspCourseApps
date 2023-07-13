@@ -2,11 +2,14 @@
 using AspCRUDStocksApp.Models.Options;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using StocksService;
+using StocksServiceContracts.DTO;
 using StocksServiceContracts.Interfaces;
 using System.Globalization;
 
 namespace AspCRUDStocksApp.Controllers
 {
+    [Route("Trade")]
     public class TradeController : Controller
     {
         private readonly IFinnhubService _finnhubService;
@@ -25,8 +28,9 @@ namespace AspCRUDStocksApp.Controllers
             _configuration = configuration;
         }
 
+        [HttpGet]
         [Route("/")]
-        [Route("Trade/Index")]
+        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             if (_tradingOptions.DefaultStockSymbol == null)
@@ -49,13 +53,48 @@ namespace AspCRUDStocksApp.Controllers
                     StockSymbol = _tradingOptions.DefaultStockSymbol,
                     StockName = Convert.ToString(stockDetails["name"]),
                     Currency = Convert.ToString(stockDetails["currency"]),
-                    Price = Convert.ToDouble(quoteDetails["c"].ToString(), provider)
+                    Price = Convert.ToDouble(quoteDetails["c"].ToString(), provider),
                 };
 
                 ViewBag.Token = _configuration["finnhubToken"];
                 return View(stockTrade);
             }
 
+            return View();
+        }
+
+        [HttpPost]
+        [Route("BuyOrder")]
+        public async Task<IActionResult> BuyOrder(BuyOrderRequest buyRequest)
+        {
+            buyRequest.DateAndTimeOfOrder = DateTime.Now;
+
+            ModelState.Clear();
+            TryValidateModel(buyRequest);
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                StockTrade stockTrade = new StockTrade() { StockName = buyRequest.StockName, Quantity = buyRequest.Quantity, StockSymbol = buyRequest.StockSymbol };
+                return View("Index", stockTrade);
+            }
+
+            BuyOrderResponse buyResponse = await _stockService.CreateBuyOrder(buyRequest);
+
+            return RedirectToAction("Orders", "Trade");
+        }
+
+        [HttpPost]
+        [Route("SellOrder")]
+        public async Task<IActionResult> SellOrder(SellOrderRequest sellRequest)
+        {
+            return RedirectToAction("Orders","Trade");
+        }
+
+        [HttpGet]
+        [Route("Orders")]
+        public async Task<IActionResult> Orders()
+        {
             return View();
         }
     }
