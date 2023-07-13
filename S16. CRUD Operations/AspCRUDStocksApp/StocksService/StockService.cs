@@ -7,8 +7,8 @@ namespace StocksService
 {
     public class StockService : IStockService
     {
-        private readonly List<BuyOrder> _buyOrders = new List<BuyOrder>();
-        private readonly List<SellOrder> _sellOrders = new List<SellOrder>();
+        private readonly List<BuyOrder> _buyOrders = new List<BuyOrder>() { };
+        private readonly List<SellOrder> _sellOrders = new List<SellOrder>() { };
         public async Task<BuyOrderResponse> CreateBuyOrder(BuyOrderRequest? buyOrderRequest)
         {
             if (buyOrderRequest == null) throw new ArgumentNullException(nameof(buyOrderRequest));

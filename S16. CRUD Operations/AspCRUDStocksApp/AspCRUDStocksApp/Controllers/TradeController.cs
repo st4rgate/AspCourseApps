@@ -76,7 +76,7 @@ namespace AspCRUDStocksApp.Controllers
             {
                 ViewBag.Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
                 StockTrade stockTrade = new StockTrade() { StockName = buyRequest.StockName, Quantity = buyRequest.Quantity, StockSymbol = buyRequest.StockSymbol };
-                return View("Index", stockTrade);
+                return View("Index");
             }
 
             BuyOrderResponse buyResponse = await _stockService.CreateBuyOrder(buyRequest);
@@ -88,14 +88,38 @@ namespace AspCRUDStocksApp.Controllers
         [Route("SellOrder")]
         public async Task<IActionResult> SellOrder(SellOrderRequest sellRequest)
         {
-            return RedirectToAction("Orders","Trade");
+            sellRequest.DateAndTimeOfOrder = DateTime.Now;
+
+            ModelState.Clear();
+            TryValidateModel(sellRequest);
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                StockTrade stockTrade = new StockTrade() { StockName = sellRequest.StockName, Quantity = sellRequest.Quantity, StockSymbol = sellRequest.StockSymbol };
+                return View("Index");
+            }
+
+            SellOrderResponse sellResponse = await _stockService.CreateSellOrder(sellRequest);
+
+            return RedirectToAction("Orders", "Trade");
         }
 
         [HttpGet]
         [Route("Orders")]
         public async Task<IActionResult> Orders()
         {
-            return View();
+            List<BuyOrderResponse> buyOrders = await _stockService.GetBuyOrders();
+            List<SellOrderResponse> sellOrders = await _stockService.GetSellOrders();
+
+            Orders orders = new Orders()
+            {
+                BuyOrders = buyOrders,
+                SellOrders = sellOrders
+            };
+
+            return View(orders);
         }
+
     }
 }
