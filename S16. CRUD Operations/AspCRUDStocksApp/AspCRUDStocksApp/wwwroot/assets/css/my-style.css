@@ -247,7 +247,7 @@ h6 {
 }
 
 .card-body {
-  padding: 0 20px 20px 20px;
+  padding: 0 10px 10px 10px;
 }
 
 .card-img-overlay {
@@ -608,7 +608,7 @@ h6 {
   top: 60px;
   left: 0;
   bottom: 0;
-  width: 300px;
+  width: 200px;
   z-index: 996;
   transition: all 0.3s;
   padding: 20px;
@@ -639,7 +639,7 @@ h6 {
 
   #main,
   #footer {
-    margin-left: 300px;
+    margin-left: 200px;
   }
 }
 

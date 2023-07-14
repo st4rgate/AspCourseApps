@@ -76,7 +76,7 @@ namespace AspCRUDStocksApp.Controllers
             {
                 ViewBag.Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
                 StockTrade stockTrade = new StockTrade() { StockName = buyRequest.StockName, Quantity = buyRequest.Quantity, StockSymbol = buyRequest.StockSymbol };
-                return View("Index");
+                return RedirectToAction("Index", "Trade");
             }
 
             BuyOrderResponse buyResponse = await _stockService.CreateBuyOrder(buyRequest);
@@ -97,7 +97,7 @@ namespace AspCRUDStocksApp.Controllers
             {
                 ViewBag.Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
                 StockTrade stockTrade = new StockTrade() { StockName = sellRequest.StockName, Quantity = sellRequest.Quantity, StockSymbol = sellRequest.StockSymbol };
-                return View("Index");
+                return RedirectToAction("Index", "Trade");
             }
 
             SellOrderResponse sellResponse = await _stockService.CreateSellOrder(sellRequest);
