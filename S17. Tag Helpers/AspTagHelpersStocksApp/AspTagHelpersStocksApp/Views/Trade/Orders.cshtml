@@ -1,0 +1,97 @@
+﻿@model Orders
+
+@{
+    ViewBag.Title = "Stock Orders";
+}
+
+<section class="section">
+    <div class="row">
+        <div class="col-xxl-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Buy Orders</h5>
+
+                    <!-- Default Table -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Symbol</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Model.BuyOrders != null)
+                            {
+                                int index = 0;
+                                @foreach (BuyOrderResponse item in Model.BuyOrders)
+                                {
+                                    index++;
+                                    <tr>
+                                        <th scope="row">@index</th>
+                                        <td>@item.StockSymbol</td>
+                                        <td>@item.StockName</td>
+                                        <td>@item.DateAndTimeOfOrder</td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.Price.ToString()</td>
+                                        <td>@item.TradeAmount</td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                    <!-- End Default Table Example -->
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Sell Orders</h5>
+
+                    <!-- Default Table -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Symbol</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.SellOrders != null)
+                            {
+                                int index = 0;
+                                @foreach (SellOrderResponse item in Model.SellOrders)
+                                {
+                                    index++;
+                                    <tr>
+                                        <th scope="row">@index</th>
+                                        <td>@item.StockSymbol</td>
+                                        <td>@item.StockName</td>
+                                        <td>@item.DateAndTimeOfOrder</td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.Price.ToString()</td>
+                                        <td>@item.TradeAmount</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <!-- End Default Table Example -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
