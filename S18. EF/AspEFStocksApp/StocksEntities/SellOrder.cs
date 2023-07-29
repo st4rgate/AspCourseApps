@@ -7,15 +7,18 @@ namespace StocksEntities
     /// </summary>
     public class SellOrder
     {
+        [Key]
         public Guid SellOrderID { get; set; }
 
         [Display(Name = "Stock Symbol")]
         [Required(ErrorMessage = "Stock symbol can't be blank")]
-        public string StockSymbol { get; set; }
+        [StringLength(10)]
+        public string? StockSymbol { get; set; }
 
         [Display(Name = "Stock Name")]
         [Required(ErrorMessage = "Stock name can't be blank")]
-        public string StockName { get; set; }
+        [StringLength(50)]
+        public string? StockName { get; set; }
 
         [Display(Name = "Order Date")]
         public DateTime DateAndTimeOfOrder { get; set; }

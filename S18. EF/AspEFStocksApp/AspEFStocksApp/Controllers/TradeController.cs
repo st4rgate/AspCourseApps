@@ -2,6 +2,7 @@
 using AspTagHelpersStocksApp.Models.Options;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Rotativa.AspNetCore;
 using StocksServiceContracts.DTO;
 using StocksServiceContracts.Interfaces;
 using System.Globalization;
@@ -32,9 +33,10 @@ namespace AspTagHelpersStocksApp.Controllers
         [Route("[Action]")]
         public async Task<IActionResult> Index()
         {
-            if (_tradingOptions.DefaultStockSymbol == null || _tradingOptions.DefaultQuantity == null)
+            if (_tradingOptions.DefaultStockSymbol == null)
             {
                 _tradingOptions.DefaultStockSymbol = "MSFT";
+                _tradingOptions.DefaultQuantity = 100;
             }
 
             Dictionary<string, object>? stockDetails =
@@ -53,7 +55,7 @@ namespace AspTagHelpersStocksApp.Controllers
                     StockName = Convert.ToString(stockDetails["name"]),
                     Currency = Convert.ToString(stockDetails["currency"]),
                     Price = Convert.ToDouble(quoteDetails["c"].ToString(), provider),
-                    Quantity = Convert.ToString(_tradingOptions
+                    Quantity = _tradingOptions.DefaultQuantity
                 };
 
                 ViewBag.Token = _configuration["finnhubToken"];
@@ -119,6 +121,27 @@ namespace AspTagHelpersStocksApp.Controllers
             };
 
             return View(orders);
+        }
+
+        [Route("[action]")]
+        public async Task<IActionResult> OrdersPDF()
+        {
+            List<BuyOrderResponse> buyOrders = await _stockService.GetBuyOrders();
+            List<SellOrderResponse> sellOrders = await _stockService.GetSellOrders();
+
+            Orders orders = new Orders()
+            {
+                BuyOrders = buyOrders,
+                SellOrders = sellOrders
+            };
+
+            // Metodo contenuto in Rotativa
+            return new ViewAsPdf("OrdersPDF", orders, ViewData)
+            {
+                PageMargins = new Rotativa.AspNetCore.Options.Margins() { Top = 10, Bottom = 10, Left = 10, Right = 10 },
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape
+            };
+
         }
 
     }
